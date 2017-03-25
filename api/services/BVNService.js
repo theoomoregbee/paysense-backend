@@ -38,20 +38,21 @@ module.exports = {
                     return response.ok({output: res.output.text, suggestions: []});
                 });
                 //return response.serverError('No user with this details found, please visit the bank');
+            } else {
+
+
+                //no error
+                context.user = user;
+                conversation.message({
+                    input: {text: "gotten bvn"},
+                    context: context,
+                    workspace_id: workspace_id
+                }, function (err, res) {
+                    if (err) return response.serverError(err);
+
+                    return response.ok({output: res.output.text, suggestions: []});
+                });
             }
-
-
-            //no error
-            context.user = user;
-            conversation.message({
-                input: {text: "gotten bvn"},
-                context: context,
-                workspace_id: workspace_id
-            }, function (err, res) {
-                if (err) return response.serverError(err);
-
-                return response.ok({output: res.output.text, suggestions: []});
-            });
 
         });
     },

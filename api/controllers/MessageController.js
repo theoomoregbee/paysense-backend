@@ -43,14 +43,17 @@ module.exports = {
 
                 var suggestions = [];
 
-                if (!response.output.nodes_visited) {
-                    return res.ok({output: "am still a baby, did not get that", suggestions: suggestions});
+
+                if (!response.output.nodes_visited && current_intent != undefined) {
+                    return res.ok({output: ["am still a baby, did not get that"], suggestions: ["say hi", "howdy"]});
                 }
 
                 //let's check if this post requires suggestions for user
-                var current_node = response.output.nodes_visited[0];
-                if (GlobalVariables.nodes_with_yes_no_response.indexOf(current_node) > -1) {
-                    suggestions = ["yes", "no"];
+                if (response.output.nodes_visited) {
+                    var current_node = response.output.nodes_visited[0];
+                    if (GlobalVariables.nodes_with_yes_no_response.indexOf(current_node) > -1) {
+                        suggestions = ["yes", "no"];
+                    }
                 }
 
 
