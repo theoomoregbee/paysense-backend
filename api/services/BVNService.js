@@ -76,7 +76,7 @@ module.exports = {
                 workspace_id: workspace_id
             }, function (err, res) {
                 if (err) return response.serverError(err);
- 
+
                 return response.ok({output: res.output.text, suggestions: []});
             });
 
