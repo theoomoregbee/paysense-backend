@@ -58,8 +58,8 @@ module.exports.connections = {
 
   onlineDB: {
     adapter: 'sails-mongo',
-    host: 'ds043477.mlab.com:43477',
-    port: 45019,
+    host: 'ds043477.mlab.com',
+    port: 43477,
     user: 'theo4u',
     password: 'paysense',
     database: 'paysense'
