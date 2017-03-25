@@ -22,7 +22,8 @@
     "rc": "1.0.1",
     "sails": "~0.12.13",
     "sails-disk": "~0.10.9",
-    "sails-mongo": "^0.12.2"
+    "sails-mongo": "^0.12.2",
+    "watson-developer-cloud": "^2.27.1"
   },
   "scripts": {
     "debug": "node debug app.js",
