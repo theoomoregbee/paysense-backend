@@ -13,19 +13,22 @@ var conversation = new ConversationV1({
 });
 
 var workspace_id = "0f6757d7-6ad3-4df0-9f68-a49697d3dfe6";
-
+var text = [];
 module.exports = {
     interact: function (req, res) {
 
         conversation.message({
             input: {text: req.query.message},
-            context:{name:"test"},
+            context: {name: "test"},
             workspace_id: workspace_id
         }, function (err, response) {
             if (err) {
                 console.error(err);
+                return;
             } else {
                 console.log(JSON.stringify(response, null, 2));
+                text.push(response);
+                return res.ok(text);
             }
         });
     }
