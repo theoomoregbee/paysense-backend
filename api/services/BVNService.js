@@ -21,7 +21,8 @@ module.exports = {
      * @param response
      */
     retrieveBVN: function (context, request, response) {
-        User.findOne({bvn: context.bvn}).exec(function (err, user) {
+        GlobalVariables.bvn = context.bvn;
+        User.findOne({bvn: GlobalVariables.bvn}).exec(function (err, user) {
             if (err) response.serverError(err);
 
             if (!user) {
@@ -53,6 +54,34 @@ module.exports = {
             });
 
         });
+    },
+
+    /**
+     * used to get the balance of the user
+     * @param context
+     * @param request
+     * @param response
+     */
+    retrieveAccountBalance: function (context, request, response) {
+        //take the text and let's load up the beneficiaries
+        User.findOne(context.user.id).exec(function (err, user) {
+            if (err) return res.serverError(err);
+
+
+            //no error
+            context.user = user;
+            conversation.message({
+                input: {text: "balance_retrieved"},
+                context: context,
+                workspace_id: workspace_id
+            }, function (err, res) {
+                if (err) return response.serverError(err);
+ 
+                return response.ok({output: res.output.text, suggestions: []});
+            });
+
+        });
     }
+
 
 };

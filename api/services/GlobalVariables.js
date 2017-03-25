@@ -7,5 +7,8 @@ module.exports = {
      * this will hold all the node with yes and no response
      * @type {[*]}
      */
-    nodes_with_yes_no_response: ["ask for bvn"]
-};
+    nodes_with_yes_no_response: ["ask for bvn"],
+    bvn: "",
+    beneficiaries: []
+}
+;
