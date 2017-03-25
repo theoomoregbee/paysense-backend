@@ -1,0 +1,15 @@
+declared-services:
+  conversation-service:
+    label: conversation
+    plan: free
+  cloudantNoSQLDB-service:
+    label: cloudantNoSQLDB
+    plan: Lite
+applications:
+- services:
+   - conversation-service
+   - cloudantNoSQLDB-service
+  name: paysense
+  command: npm start
+  path: .
+  memory: 512M
