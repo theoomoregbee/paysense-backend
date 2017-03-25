@@ -28,7 +28,7 @@ module.exports = {
             unique: true
         },
         account_balance: {
-            type: 'number',
+            type: 'float',
             required: true
         }
     }
