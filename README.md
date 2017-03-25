@@ -1,2 +1,3 @@
-# paysense
-Leave it for us first lol
+# app
+
+a [Sails](http://sailsjs.org) application
