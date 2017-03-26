@@ -46,7 +46,7 @@ module.exports.cors = {
      *                                                                          *
      ***************************************************************************/
 
-    origin: 'http://localhost:8888, https://paysense-frontend.mybluemix.com',//'*',
+    origin: 'http://localhost:8888, https://paysense-frontend.mybluemix.net, http://paysense-frontend.mybluemix.net',//'*',
 
     /***************************************************************************
      *                                                                          *
@@ -72,6 +72,6 @@ module.exports.cors = {
      *                                                                          *
      ***************************************************************************/
 
-    headers: 'content-type'
+    headers: 'content-type, Access-Control-Allow-Origin'
 
 };
