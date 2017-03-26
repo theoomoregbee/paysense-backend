@@ -72,41 +72,64 @@ module.exports = {
 
                     }
                 } else if (intentsHistory[intentsHistory.length - 1] == "moneytransfer") {
-                    //take the text and let's load up the beneficiaries
-                    Beneficiary.find().exec(function (err, beneficiaries) {
-                        if (err) return res.serverError(err);
+                    console.log("i thinlk it is here");
 
-                        GlobalVariables.beneficiaries = beneficiaries;
-                        context.beneficiaries = beneficiaries;
-                        var text = "";
-                        suggestions = [];
-                        for (var i = 0; i < beneficiaries.length; i++) {
-                            text += "<br>" + (i + 1) + ". " + beneficiaries[i].name + ", " + beneficiaries[i].account_number;
-                            suggestions.push(i + 1);
-                        }
-
-                        return res.ok({output: [response.output.text[0] + text], suggestions: suggestions});
-                    });
-
-                } else if (intentsHistory[intentsHistory.length - 1] == "account_balance") {
-                    BVNService.retrieveAccountBalance(context, req, res);
-                } else
-
-                /**
-                 * we start our bot node switch structuring here, after all the intent checking above
-                 */
                     switch (current_node) {
                         case "enter beneficiary":
-                            console.log("index", context.beneficiary_index);
+                            console.log("index", context.beneficiary_index, context.beneficiaries, GlobalVariables.beneficiaries);
                             context.beneficiary = GlobalVariables.beneficiaries[context.beneficiary_index - 1];
                             return res.ok({
                                 output: [response.output.text[0] + " " + context.beneficiary.name + ", amount to transfer ?"],
                                 suggestions: suggestions
                             });
                             break;
+                        case "enter amount":
+                            //we use pay with capture to make this payment
+                           // PaymentService.transfer(context, req, res);
+                             return res.ok({output: response.output.text, suggestions: suggestions});
+                            break;
+
+                        default:
+                            //take the text and let's load up the beneficiaries
+                            Beneficiary.find().exec(function (err, beneficiaries) {
+                                if (err) return res.serverError(err);
+
+                                GlobalVariables.beneficiaries = beneficiaries;
+                                context.beneficiaries = beneficiaries;
+                                var text = "";
+                                suggestions = [];
+                                for (var i = 0; i < beneficiaries.length; i++) {
+                                    text += "<br>" + (i + 1) + ". " + beneficiaries[i].name + ", " + beneficiaries[i].account_number;
+                                    suggestions.push(i + 1);
+                                }
+
+                                return res.ok({output: [response.output.text[0] + text], suggestions: suggestions});
+                            });
+
+                    }
+
+
+                } else if (intentsHistory[intentsHistory.length - 1] == "account_balance") {
+                    BVNService.retrieveAccountBalance(context, req, res);
+                } else {
+
+                    /**
+                     * we start our bot node switch structuring here, after all the intent checking above
+                     */
+                    console.log("am here");
+                    switch (current_node) {
+                        // case "enter beneficiary":
+                        //     console.log("index", context.beneficiary_index, context.beneficiaries, GlobalVariables.beneficiaries);
+                        //     context.beneficiary = GlobalVariables.beneficiaries[context.beneficiary_index - 1];
+                        //     return res.ok({
+                        //         output: [response.output.text[0] + " " + context.beneficiary.name + ", amount to transfer ?"],
+                        //         suggestions: suggestions
+                        //     });
+                        //     break;
                         default:
                             return res.ok({output: response.output.text, suggestions: suggestions});
                     }
+                }
 
 
             }
