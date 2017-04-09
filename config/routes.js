@@ -46,6 +46,9 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
-  'get /message/interact': 'MessageController.interact'
-
+  'get /message/interact': 'MessageController.interact',
+  
+  'get /text2speech/voices': 'Text2SpeechController.voices', 
+  'get /text2speech/speech': 'Text2SpeechController.speech', 
+  'get /text2speech/audio': 'Text2SpeechController.getVoiceAudio'
 };

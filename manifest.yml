@@ -9,6 +9,7 @@ applications:
 - services:
    - conversation-service
    - cloudantNoSQLDB-service
+   - my-text-to-speech
   name: paysense
   command: npm start
   path: .

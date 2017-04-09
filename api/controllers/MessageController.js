@@ -20,9 +20,9 @@ var intentsHistory = [];
 
 module.exports = {
     interact: function (req, res) {
-
+       
         conversation.message({
-            input: {text: req.query.message},
+            input: { text: req.query.message },
             context: context,
             workspace_id: workspace_id
         }, function (err, response) {
@@ -45,7 +45,7 @@ module.exports = {
 
 
                 if (!response.output.nodes_visited && current_intent != undefined) {
-                    return res.ok({output: ["am still a baby, did not get that"], suggestions: ["say hi", "howdy"]});
+                    return res.ok({ output: ["am still a baby, did not get that"], suggestions: ["say hi", "howdy"] });
                 }
 
                 //let's check if this post requires suggestions for user
@@ -85,8 +85,8 @@ module.exports = {
                             break;
                         case "enter amount":
                             //we use pay with capture to make this payment
-                           // PaymentService.transfer(context, req, res);
-                             return res.ok({output: response.output.text, suggestions: suggestions});
+                            // PaymentService.transfer(context, req, res);
+                            return res.ok({ output: response.output.text, suggestions: suggestions });
                             break;
 
                         default:
@@ -103,7 +103,7 @@ module.exports = {
                                     suggestions.push(i + 1);
                                 }
 
-                                return res.ok({output: [response.output.text[0] + text], suggestions: suggestions});
+                                return res.ok({ output: [response.output.text[0] + text], suggestions: suggestions });
                             });
 
                     }
@@ -127,7 +127,7 @@ module.exports = {
                         //     });
                         //     break;
                         default:
-                            return res.ok({output: response.output.text, suggestions: suggestions});
+                            return res.ok({ output: response.output.text, suggestions: suggestions });
                     }
                 }
 

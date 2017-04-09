@@ -11,12 +11,20 @@
  *          - pass string to render specified view
  */
 
-module.exports = function sendOK (data, options) {
+module.exports = function sendOK(data, options) {
 
   // Get access to `req`, `res`, & `sails`
   var req = this.req;
   var res = this.res;
   var sails = req._sails;
+
+  var text_to_speech = req.query.text_to_speech || false;
+
+  if (data.output && text_to_speech === true) {
+    console.log(data.output);
+    // Pipe the synthesized text to a file.
+    Text2SpeechService.convert(data.output.join(". "));
+  }
 
   sails.log.silly('res.ok() :: Sending 200 ("OK") response');
 
@@ -37,9 +45,9 @@ module.exports = function sendOK (data, options) {
   var viewData = data;
   if (!(viewData instanceof Error) && 'object' == typeof viewData) {
     try {
-      viewData = require('util').inspect(data, {depth: null});
+      viewData = require('util').inspect(data, { depth: null });
     }
-    catch(e) {
+    catch (e) {
       viewData = undefined;
     }
   }
@@ -53,7 +61,7 @@ module.exports = function sendOK (data, options) {
 
   // If no second argument provided, try to serve the implied view,
   // but fall back to sending JSON(P) if no view can be inferred.
-  else return res.guessView({ data: viewData, title: 'OK' }, function couldNotGuessView () {
+  else return res.guessView({ data: viewData, title: 'OK' }, function couldNotGuessView() {
     return res.jsonx(data);
   });
 
