@@ -18,10 +18,10 @@ module.exports = function sendOK(data, options) {
   var res = this.res;
   var sails = req._sails;
 
-  var text_to_speech = req.query.text_to_speech || false;
+  var text_to_speech = req.query.text_to_speech == 'true';
 
-  if (data.output && text_to_speech === true) {
-    console.log(data.output);
+  if (data.output != undefined && text_to_speech) {
+  //  console.log("lemme printout rubbish here inner", text_to_speech, data);
     // Pipe the synthesized text to a file.
     Text2SpeechService.convert(data.output.join(". "));
   }
