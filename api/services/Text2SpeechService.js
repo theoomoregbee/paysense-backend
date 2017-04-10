@@ -17,7 +17,7 @@ module.exports = {
     convert: (text) => {
         var params = {
             text: text,
-          //  voice: 'en-US_AllisonVoice',
+            voice: 'en-US_AllisonVoice',
             accept: 'audio/wav'
         };
   
