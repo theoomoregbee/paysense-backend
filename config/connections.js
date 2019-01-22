@@ -61,7 +61,7 @@ module.exports.connections = {
     host: 'ds043477.mlab.com',
     port: 43477,
     user: 'theo4u',
-    password: 'paysense',
+    password: process.env.DB_PASSWORD,
     database: 'paysense'
   }
   /***************************************************************************
