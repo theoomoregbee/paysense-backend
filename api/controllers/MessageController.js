@@ -8,19 +8,19 @@ var ConversationV1 = require('watson-developer-cloud/conversation/v1');
 
 
 var conversation = new ConversationV1({
-    username: 'c23596d0-40e7-4aa3-80e7-d80b252c857e',
-    password: 'q6utoCaJm586',
+    username: process.env.CONVERSATION_USERNAME,
+    password: process.env.CONVERSATION_PASSWORD,
     version_date: ConversationV1.VERSION_DATE_2017_02_03
 });
 
-var workspace_id = "0f6757d7-6ad3-4df0-9f68-a49697d3dfe6";
+var workspace_id = process.env.CONVERSATION_WORKSPACE_ID || "0f6757d7-6ad3-4df0-9f68-a49697d3dfe6";
 var context = {};
 var intentsHistory = [];
 
 
 module.exports = {
     interact: function (req, res) {
-       
+
         conversation.message({
             input: { text: req.query.message },
             context: context,

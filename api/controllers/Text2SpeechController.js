@@ -8,8 +8,8 @@ const TextToSpeechV1 = require('watson-developer-cloud/text-to-speech/v1');
 var fs = require('fs');
 
 const textToSpeech = new TextToSpeechV1({
-    username: 'f678265e-d206-409f-be16-631c84ff1263',
-    password: 'P5FdTN4QC3cp',
+    username: process.env.TEXT2SPEECH_USERNAME,
+    password: process.env.TEXT2SPEECH_PASSWORD,
 });
 module.exports = {
     /**
